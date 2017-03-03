@@ -34,7 +34,7 @@ var map;
       title:'uno'
     });*/
     //colo ca y borra marcadores
-    var miubicacion= new google.maps.LatLng(19.4319526,-991418086);
+    /*var miubicacion= new google.maps.LatLng(19.4319526,-991418086);
     var opcionesmap={
        center:miubicacion,
        zoom:5
@@ -45,7 +45,29 @@ var map;
       position:miubicacion,
       title:'HOLA'
     });
-    marker.setMap(null);
+    marker.setMap(null);*/
+    //animacion de marcador
+    var ubicacion={lat:19.4319526, lng:-99.1418086}
+    var mapa = new google.maps.Map(document.getElementById("map"),{
+      zoom: 13,
+      center: ubicacion
+    });
+
+    var marker =new google.maps.Marker({
+      map:mapa,
+      draggadle: true,
+      animation: google.maps.Animation.DROP,
+      position:ubicacion
+    });
+    marker.addListener('click',toggleBounce);
+  }
+  function toggleBounce(){
+    //desactiva la animacion del marcador
+    if(marker.getAnimacion() !== null){
+      marker.setAnimation(null);
+    }else{
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
   }
 </script>
 <script async defer
