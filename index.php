@@ -20,10 +20,32 @@
 <script type="text/javascript">
 var map;
   function initMap(){
+    /* coloca un marcador
+    var miubicacion={lat:19.4319526, lng:-99.1418086};
     map = new google.maps.Map(document.getElementById('map'),{
-      center:{lat:19.4198147, lng:19.4198147},
-      zoom:9
+      center:miubicacion,
+      scrollwheel:false,
+      zoom:5
     });
+
+    var marker= new google.maps.Marker({
+      map:map,
+      position:miubicacion,
+      title:'uno'
+    });*/
+    //colo ca y borra marcadores
+    var miubicacion= new google.maps.LatLng(19.4319526,-991418086);
+    var opcionesmap={
+       center:miubicacion,
+       zoom:5
+    }
+    var map = new google.maps.Map(document.getElementById("map"),opcionesmap);
+
+    var marker=new google.maps.Marker({
+      position:miubicacion,
+      title:'HOLA'
+    });
+    marker.setMap(null);
   }
 </script>
 <script async defer
