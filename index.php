@@ -52,14 +52,16 @@ var map;
       zoom: 13,
       center: ubicacion
     });
-
+    var image='img/pin.png';
     var marker =new google.maps.Marker({
       map:mapa,
       draggadle: true,
       animation: google.maps.Animation.DROP,
-      position:ubicacion
+      position:ubicacion,
+      icon:image
     });
     marker.addListener('click',toggleBounce);
+    setMarkers(mapa);
   }
   function toggleBounce(){
     //desactiva la animacion del marcador
