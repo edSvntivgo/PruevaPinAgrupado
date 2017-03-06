@@ -1,20 +1,53 @@
-function initMap (){
-  var ubicacion={lat:19.4319526, lng:-99.1418086};
-  var map=new google.maps.Map(document.getElementById('map'),{
-    zoom:5,
-    center:ubicacion
-  });
-  var image='img/pin.png';
-  var markers=locations.map(function(location,i){
-    return new google.maps.Marker({
-      position:location,
-      icon:image,
-      draggadle: true,
-      animation: google.maps.Animation.DROP,
-    });
+function initAutocomplete() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 24.9633627, lng: -105.4944195},
+    zoom: 5,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
   });
 
-  var markerCluster = new MarkerClusterer(map, markers,{imagePath:'http://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+        // obtiene los datos del inpput para la busqueda
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        //obtiene los datos del input y empiesa a usar google place para el auto completado
+        searchBox.addListener('places_changed', function() {
+        var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return
+          }
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+            var image='img/pin.png';
+              var markers=locations.map(function(location,i){
+              return new google.maps.Marker({
+                position:location,
+                icon:image,
+                draggadle: true,
+                animation: google.maps.Animation.DROP,
+              });
+            });
+
+            var markerCluster = new MarkerClusterer(map, markers,{imagePath:'http://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+          });
+          map.fitBounds(bounds);
+        });
+}
+function lee(){
 
 }
 
@@ -44,7 +77,7 @@ var locations =[
   {lat:19.3783276, lng:-99.142399},
   {lat:28.3498733, lng:-113.6514648},
   {lat:27.965491,  lng:-114.0076029},
-  {lat:21.85796750, lng:-102.28485913},
+  {lat:21.85796750,lng:-102.28485913},
   {lat:28.0286833, lng:-114.0175511},
   {lat:32.7106278, lng:-117.1620293},
   {lat:32.7101765, lng:-117.1500774},
@@ -66,4 +99,18 @@ var locations =[
   {lat:25.0685544, lng:-107.6745626},
   {lat:23.7964686, lng:-102.9760725},
   {lat:23.3748412, lng:-102.4779763},
+  {lat:34.0201812, lng:-118.6919188},
+  {lat:34.0825439, lng:-118.4345534},
+  {lat:34.0804113, lng:-118.4264853},
+  {lat:34.0754349, lng:-118.3756735},
+  {lat:34.0845607, lng:-118.4271938},
+  {lat:34.0729532, lng:-118.4148571},
+  {lat:34.1458207, lng:-108.2695394},
+  {lat:19.4168924, lng:-99.1573705},
+  {lat:19.4148388, lng:-99.1435026},
+  {lat:19.402534,  lng:-99.1232465},
+  {lat:19.3783198, lng:-99.0698897},
+  {lat:19.3772685, lng:-99.0625197},
+  {lat:19.3944913, lng:-99.0089816},
+  {lat:19.3998058, lng:-99.141964}
 ]
