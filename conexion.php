@@ -1,14 +1,11 @@
 <?php 
-$db_name='mapa';
+$db_name='osmexico';
 $db_host='localhost';
 $db_user='root';
 $db_password='';
 
-$conexion=mysql_connect($db_host,$db_user,$db_password);
-if (!$conexion) {
-    die('No se pudo conectar : ' . mysql_error());
+ $conexion = new mysqli($db_host, $db_user, $db_password, $db_name);
+if ($conexion->connect_errno) {
+    echo "Fallo al conectar a MySQL: (" . $conexion->connect_errno . ") " . $conexion->connect_error;
 }
- mysql_select_db($db_name,$conexion);
- echo "correcto";
-
 ?>
